@@ -36,7 +36,7 @@ class ProfileScr extends StatelessWidget {
               ),
               CircleAvatar(
                 foregroundImage: const AssetImage(
-                  'assets/images/p2.jpg',
+                  'assets/images/p1.jpg',
                 ),
                 radius: 50.r,
               ),

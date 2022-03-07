@@ -129,7 +129,7 @@ class _NotificationLike extends StatelessWidget {
                         child: Center(
                           child: CircleAvatar(
                             foregroundImage:
-                                const AssetImage('assets/images/p2.jpg'),
+                                const AssetImage('assets/images/p3.jpg'),
                             radius: 24.r,
                           ),
                         ),
