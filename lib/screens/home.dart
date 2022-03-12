@@ -61,14 +61,27 @@ class HomeScr extends StatelessWidget {
               SizedBox(
                 height: 24.h,
               ),
-              const RecipeItem(
-                authorImageUri: '',
-                authorName: 'Calcum Lewis',
-                imageUri: '',
-                itemName: 'Pancake',
-                categoryName: 'Food',
-                requiredTime: '60 mins',
-              )
+              Expanded(
+                child: GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: 12,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisExtent:
+                        32.r + 16.h + 152.h + 16.h + 17.sp + 8.h + 12.sp + 10.r,
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 24.w,
+                    mainAxisSpacing: 32.h,
+                  ),
+                  itemBuilder: (ctx, index) => const RecipeItem(
+                    authorImageUri: 'authorImageUri',
+                    authorName: 'Toki',
+                    imageUri: 'imageUri',
+                    itemName: 'Dumplings',
+                    categoryName: 'Bento',
+                    requiredTime: '60 mins',
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -86,30 +99,42 @@ class _NavBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           label: 'Home',
-          icon: Icon(
-            Icons.home,
-            size: 24.sp,
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4.h),
+            child: Icon(
+              const IconData(0xf015, fontFamily: 'fas'),
+              size: 24.sp,
+            ),
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Upload',
-          icon: Icon(
-            Icons.my_library_add_rounded,
-            size: 24.sp,
+          label: 'New Recipe',
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4.h),
+            child: Icon(
+              const IconData(0xf52d, fontFamily: 'fas'),
+              size: 24.sp,
+            ),
           ),
         ),
         BottomNavigationBarItem(
           label: 'Notification',
-          icon: Icon(
-            Icons.notifications,
-            size: 24.sp,
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4.h),
+            child: Icon(
+              const IconData(0xf0f3, fontFamily: 'fas'),
+              size: 24.sp,
+            ),
           ),
         ),
         BottomNavigationBarItem(
           label: 'Profile',
-          icon: Icon(
-            Icons.person,
-            size: 24.sp,
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4.h),
+            child: Icon(
+              const IconData(0xf007, fontFamily: 'fas'),
+              size: 24.sp,
+            ),
           ),
         ),
       ],

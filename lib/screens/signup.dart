@@ -111,8 +111,7 @@ class SignupScr extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(
-                                  IconData('G'.codeUnitAt(0),
-                                      fontFamily: 'Inter'),
+                                  const IconData(0xf1a0, fontFamily: 'fab'),
                                   size: 15.sp,
                                 ),
                                 SizedBox(width: 8.w),

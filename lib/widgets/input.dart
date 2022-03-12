@@ -116,7 +116,7 @@ class SearchBar extends StatelessWidget {
               width: 24.r,
             ),
             Icon(
-              Icons.search,
+              const IconData(0xf002, fontFamily: 'fas'),
               size: 18.sp,
               color: AppColors.secondaryText,
             ),

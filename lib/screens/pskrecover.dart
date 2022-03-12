@@ -1,4 +1,5 @@
 import 'package:chefio/screens/signup.dart';
+import 'package:chefio/screens/verifycode.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/buttons.dart';
@@ -72,7 +73,7 @@ class PskRecoverScr extends StatelessWidget {
                             Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                builder: (ctx) => const _PostPskRecoverScr(),
+                                builder: (ctx) => const PinVerifyScr(),
                               ),
                             );
                           },
@@ -92,8 +93,8 @@ class PskRecoverScr extends StatelessWidget {
   }
 }
 
-class _PostPskRecoverScr extends StatelessWidget {
-  const _PostPskRecoverScr({Key? key}) : super(key: key);
+class PostPskRecoverScr extends StatelessWidget {
+  const PostPskRecoverScr({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
