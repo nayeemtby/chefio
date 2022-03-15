@@ -85,7 +85,7 @@ class ProfileScr extends StatelessWidget {
                         height: 2.h,
                       ),
                       Text(
-                        'Followers',
+                        'Following',
                         style: TxtThemes.s
                             .copyWith(color: AppColors.secondaryText),
                       ),
