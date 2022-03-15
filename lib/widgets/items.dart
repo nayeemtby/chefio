@@ -81,25 +81,27 @@ class RecipeItem extends StatelessWidget {
                   Positioned(
                     top: 16.sp,
                     right: 16.sp,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.r),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                        child: ColoredBox(
-                          color: AppColors.white.withOpacity(0.2),
-                          child: SizedBox.square(
-                            dimension: 32.sp,
-                            child: Center(
-                              child: Icon(
-                                Icons.favorite_border_rounded,
-                                size: 24.sp,
-                                color: AppColors.white,
+                    child: showAuthor
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(8.r),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                              child: ColoredBox(
+                                color: AppColors.white.withOpacity(0.2),
+                                child: SizedBox.square(
+                                  dimension: 32.sp,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.favorite_border_rounded,
+                                      size: 24.sp,
+                                      color: AppColors.white,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ),
+                          )
+                        : const SizedBox(),
                   )
                 ],
               ),
