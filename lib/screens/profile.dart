@@ -85,7 +85,7 @@ class ProfileScr extends StatelessWidget {
                         height: 2.h,
                       ),
                       Text(
-                        'Followers',
+                        'Following',
                         style: TxtThemes.s
                             .copyWith(color: AppColors.secondaryText),
                       ),
@@ -151,10 +151,13 @@ class ProfileScr extends StatelessWidget {
                     GridView.builder(
                       physics: const BouncingScrollPhysics(),
                       padding: EdgeInsets.symmetric(
-                          horizontal: 24.w, vertical: 24.h),
+                        horizontal: 24.w,
+                        vertical: 24.h,
+                      ),
                       itemCount: 12,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisExtent: 152.h + 16.h + 17.sp + 8.h + 12.sp + 6,
+                        mainAxisExtent:
+                            152.h + 16.h + 17.sp + 8.h + 12.sp + 10.h,
                         crossAxisCount: 2,
                         crossAxisSpacing: 24.w,
                         mainAxisSpacing: 32.h,
@@ -171,7 +174,10 @@ class ProfileScr extends StatelessWidget {
                     ),
                     GridView.builder(
                       physics: const BouncingScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.w,
+                        vertical: 24.h,
+                      ),
                       itemCount: 12,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         mainAxisExtent: 32.r +
@@ -181,7 +187,7 @@ class ProfileScr extends StatelessWidget {
                             17.sp +
                             8.h +
                             12.sp +
-                            6,
+                            10.h,
                         crossAxisCount: 2,
                         crossAxisSpacing: 24.w,
                         mainAxisSpacing: 32.h,

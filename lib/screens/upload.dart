@@ -25,7 +25,7 @@ class UploadScr extends StatelessWidget {
             style: TxtThemes.h2.copyWith(color: AppColors.primaryText),
           )
         ],
-        body: _Page1(),
+        body: const _Page2(),
       ),
     );
   }
@@ -299,6 +299,7 @@ class _Page1 extends StatelessWidget {
                   height: 160.r,
                   width: double.infinity,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         Icons.image,

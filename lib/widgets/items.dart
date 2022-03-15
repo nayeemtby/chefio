@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,7 @@ class RecipeItem extends StatelessWidget {
       color: Colors.transparent,
       child: SizedBox(
         width: 152.w,
+        height: 264.h,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -66,12 +69,41 @@ class RecipeItem extends StatelessWidget {
                 : const SizedBox(),
             ClipRRect(
               borderRadius: BorderRadius.circular(16.r),
-              child: SizedBox(
-                height: 152.h,
-                child: Image.asset(
-                  'assets/images/r1.jpg',
-                  fit: BoxFit.cover,
-                ),
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 152.h,
+                    child: Image.asset(
+                      'assets/images/r2.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    top: 16.sp,
+                    right: 16.sp,
+                    child: showAuthor
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(8.r),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                              child: ColoredBox(
+                                color: AppColors.white.withOpacity(0.2),
+                                child: SizedBox.square(
+                                  dimension: 32.sp,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.favorite_border_rounded,
+                                      size: 24.sp,
+                                      color: AppColors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                  )
+                ],
               ),
             ),
             SizedBox(
