@@ -1,5 +1,7 @@
+import 'package:chefio/screens/login.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chefio/widgets/buttons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,7 +51,12 @@ class OnboardingScr extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 24.w),
                 child: BtnPrimary(
                   txt: 'Get Started',
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (ctx) => const LoginScr(),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox()

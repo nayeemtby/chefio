@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:chefio/screens/details.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -104,6 +106,17 @@ class RecipeItem extends StatelessWidget {
                   )
                 ],
               ),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            Text(
+              itemName,
+              style: TxtThemes.h2
+                  .copyWith(color: AppColors.primaryText.withAlpha(228)),
+            ),
+            SizedBox(
+              height: 8.h,
             ),
             const Expanded(
               flex: 2,
