@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -47,11 +50,7 @@ class DetailsScr extends StatelessWidget {
                 child: CustomScrollView(
                   physics: const BouncingScrollPhysics(),
                   slivers: [
-                    SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 0.3.sh,
-                      ),
-                    ),
+                    const SliverPersistentHeader(delegate: _BackBtnHeader()),
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: _DetailsHeader(),
@@ -315,8 +314,17 @@ class _StepItem extends StatelessWidget {
 class _DetailsHeader extends SliverPersistentHeaderDelegate {
   _DetailsHeader();
 
-  final double height =
-      16.h + 5.h + 24.h + 8.h + 16.h + 16.h + 1.h + 32.r + 17.sp + 12.sp;
+  final double height = 16.h +
+      5.h +
+      24.h +
+      8.h +
+      16.h +
+      16.h +
+      1.h +
+      32.r +
+      17.sp +
+      12.sp +
+      10.h; // 10 safety
   // (16 + 5 + 24 + 8 + 32 + 1).h + 32.r + 29.sp;
   @override
   Widget build(
@@ -324,80 +332,156 @@ class _DetailsHeader extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return Material(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(32.r),
-        topRight: Radius.circular(32.r),
-      ),
-      color: AppColors.white,
-      child: SizedBox(
-        height: height,
-        width: 1.sw,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 16.h,
-            ),
-            Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100.r),
-                child: SizedBox(
-                  width: 40.w,
-                  height: 5.h,
-                  child: ColoredBox(
-                    color: AppColors.secondaryText.withAlpha(96),
-                  ),
+    return TweenAnimationBuilder<double>(
+      curve: Curves.ease,
+      duration: const Duration(milliseconds: 200),
+      tween: Tween<double>(begin: 0, end: shrinkOffset > 0 ? 0 : 1),
+      builder: (context, value, child) {
+        return Material(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(32.r * value),
+            topRight: Radius.circular(32.r * value),
+          ),
+          color: AppColors.white,
+          child: child,
+        );
+      },
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SizedBox(
+            height: constraints.maxHeight,
+            width: 1.sw,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 16.h,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 24.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Cacao milk',
-                    style: TxtThemes.h2.copyWith(
-                      color: AppColors.primaryText.withAlpha(228),
+                Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100.r),
+                    child: SizedBox(
+                      width: 40.w,
+                      height: 5.h,
+                      child: ColoredBox(
+                        color: AppColors.secondaryText.withAlpha(96),
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    height: 8.h,
+                ),
+                SizedBox(
+                  height: 24.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Cacao milk',
+                          style: TxtThemes.h2.copyWith(
+                            color: AppColors.primaryText.withAlpha(228),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Food' ' * >' '60 mins',
+                          style: TxtThemes.s
+                              .copyWith(color: AppColors.secondaryText),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      const _DetailsAuthor(),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      Divider(
+                        height: 0,
+                        thickness: 1.h,
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Food' ' * >' '60 mins',
-                    style: TxtThemes.s.copyWith(color: AppColors.secondaryText),
-                  ),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  const _DetailsAuthor(),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  Divider(
-                    height: 0,
-                    thickness: 1.h,
-                  ),
-                ],
-              ),
-            )
-          ],
+                )
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => height + 1;
+
+  @override
+  double get minExtent => height;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
+}
+
+class _BackBtnHeader extends SliverPersistentHeaderDelegate {
+  const _BackBtnHeader();
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final double maxWidth = 1.sw;
+    final double maxHeight = maxExtent - shrinkOffset;
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
+      child: SizedBox(
+        height: maxHeight,
+        width: maxWidth,
+        child: Padding(
+          padding: EdgeInsets.only(top: 26.h, left: 24.w),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final double _factor = constraints.maxHeight / 56.r;
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(56.r),
+                  child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                      child: ColoredBox(
+                        color: AppColors.white.withAlpha(0x33),
+                        child: SizedBox.square(
+                          dimension: 56.r * min(_factor, 1),
+                          child: Center(
+                            child: Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              size: 16.r * min(_factor, 1),
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ),
+                      )),
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
   }
 
   @override
-  double get maxExtent => height;
+  double get maxExtent => 0.3.sh;
 
   @override
-  double get minExtent => height;
+  double get minExtent => 0;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
