@@ -20,6 +20,7 @@ class RecipeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
+      minTextAdapt: true,
       designSize: const Size(375, 812),
       builder: () {
         return const MaterialApp(
