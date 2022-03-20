@@ -1,7 +1,10 @@
+import 'package:chefio/screens/onboarding.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
+import 'package:chefio/widgets/buttons.dart';
 import 'package:chefio/widgets/items.dart';
 import 'package:chefio/widgets/scaffolds.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,7 +39,9 @@ class ProfileScr extends StatelessWidget {
               ),
             ),
             context: context,
-            builder: (ctx) => _ProfileOptionSheet(),
+            builder: (ctx) => _ProfileOptionSheet(
+              canLogOut: Navigator.canPop(context),
+            ),
           ),
           splashFactory: InkRipple.splashFactory,
           borderRadius: BorderRadius.circular(56.r),
@@ -275,11 +280,19 @@ class _ProfileOptionSheet extends StatelessWidget {
               text: 'Settings',
               onTap: () {},
             ),
-            _SheetBtn(
-              iconData: Icons.logout_rounded,
-              text: 'Logout',
-              onTap: () {},
-            ),
+            canLogOut
+                ? _SheetBtn(
+                    iconData: Icons.logout_rounded,
+                    text: 'Logout',
+                    onTap: () {
+                      Navigator.pop(context);
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (ctx) => const _LogoutDialog(),
+                      );
+                    },
+                  )
+                : const SizedBox(),
           ],
         ),
       ),
@@ -323,6 +336,67 @@ class _SheetBtn extends StatelessWidget {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LogoutDialog extends StatelessWidget {
+  const _LogoutDialog({
+    Key? key,
+  }) : super(key: key);
+  void confirmLogout(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.pushAndRemoveUntil(
+      context,
+      CupertinoPageRoute(builder: (ctx) => const OnboardingScr()),
+      (route) => !Navigator.canPop(context),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.r)),
+      backgroundColor: AppColors.white,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 0.8.sw),
+        child: Padding(
+          padding: EdgeInsets.all(24.r),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Confirm Logout',
+                style: TxtThemes.h1.copyWith(color: AppColors.primaryText),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              Text(
+                'Do you really want to logout?',
+                style: TxtThemes.p1.copyWith(
+                  color: AppColors.primaryText.withAlpha(228),
+                ),
+              ),
+              SizedBox(
+                height: 32.h,
+              ),
+              BtnPrimary(
+                txt: 'Yes',
+                onTap: () => confirmLogout(context),
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              BtnPrimary(
+                txt: 'No',
+                onTap: () => Navigator.pop(context),
+              ),
+            ],
+          ),
         ),
       ),
     );
