@@ -455,15 +455,19 @@ class _BackBtnHeader extends SliverPersistentHeaderDelegate {
                   borderRadius: BorderRadius.circular(56.r),
                   child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                      child: ColoredBox(
+                      child: Material(
                         color: AppColors.white.withAlpha(0x33),
-                        child: SizedBox.square(
-                          dimension: 56.r * min(_factor, 1),
-                          child: Center(
-                            child: Icon(
-                              Icons.arrow_back_ios_new_rounded,
-                              size: 16.r * min(_factor, 1),
-                              color: AppColors.white,
+                        child: InkWell(
+                          onTap: () => Navigator.pop(context),
+                          splashFactory: InkRipple.splashFactory,
+                          child: SizedBox.square(
+                            dimension: 56.r * min(_factor, 1),
+                            child: Center(
+                              child: Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                size: 16.r * min(_factor, 1),
+                                color: AppColors.white,
+                              ),
                             ),
                           ),
                         ),

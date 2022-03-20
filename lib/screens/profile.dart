@@ -13,10 +13,18 @@ class ProfileScr extends StatelessWidget {
     return TopBarScaffold(
       topBarChildren: [
         Navigator.canPop(context)
-            ? Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 24.sp,
-                color: AppColors.primaryText,
+            ? InkWell(
+                onTap: () => Navigator.pop(context),
+                splashFactory: InkRipple.splashFactory,
+                borderRadius: BorderRadius.circular(56.r),
+                child: SizedBox.square(
+                  dimension: 56.r,
+                  child: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    size: 24.sp,
+                    color: AppColors.primaryText,
+                  ),
+                ),
               )
             : const SizedBox(),
         InkWell(
