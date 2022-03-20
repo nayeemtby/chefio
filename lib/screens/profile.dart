@@ -19,10 +19,29 @@ class ProfileScr extends StatelessWidget {
                 color: AppColors.primaryText,
               )
             : const SizedBox(),
-        Icon(
-          Icons.share,
-          size: 24.sp,
-          color: AppColors.primaryText,
+        InkWell(
+          onTap: () => showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(32.r),
+                topRight: Radius.circular(32.r),
+              ),
+            ),
+            context: context,
+            builder: (ctx) => _ProfileOptionSheet(),
+          ),
+          splashFactory: InkRipple.splashFactory,
+          borderRadius: BorderRadius.circular(56.r),
+          child: SizedBox.square(
+            dimension: 56.r,
+            child: Center(
+              child: Icon(
+                Icons.more_vert_rounded,
+                size: 24.sp,
+                color: AppColors.primaryText,
+              ),
+            ),
+          ),
         ),
       ],
       body: SizedBox(
@@ -206,6 +225,104 @@ class ProfileScr extends StatelessWidget {
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ProfileOptionSheet extends StatelessWidget {
+  const _ProfileOptionSheet({
+    Key? key,
+    this.canLogOut = false,
+  }) : super(key: key);
+  final bool canLogOut;
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppColors.white,
+      borderRadius: BorderRadius.circular(32.r),
+      child: SizedBox(
+        width: 1.sw,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 16.h,
+            ),
+            Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100.r),
+                child: SizedBox(
+                  width: 40.w,
+                  height: 5.h,
+                  child: ColoredBox(
+                    color: AppColors.secondaryText.withAlpha(96),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 24.h,
+            ),
+            _SheetBtn(
+              iconData: Icons.share_rounded,
+              text: 'Share',
+              onTap: () {},
+            ),
+            _SheetBtn(
+              iconData: Icons.settings_rounded,
+              text: 'Settings',
+              onTap: () {},
+            ),
+            _SheetBtn(
+              iconData: Icons.logout_rounded,
+              text: 'Logout',
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SheetBtn extends StatelessWidget {
+  const _SheetBtn({
+    Key? key,
+    required this.iconData,
+    required this.text,
+    this.onTap,
+  }) : super(key: key);
+
+  final IconData iconData;
+  final String text;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      splashFactory: InkRipple.splashFactory,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 24.w),
+        child: Row(
+          children: [
+            Icon(
+              iconData,
+              size: 18.sp,
+              color: AppColors.primaryText,
+            ),
+            SizedBox(
+              width: 12.w,
+            ),
+            Text(
+              text,
+              style: TxtThemes.h2.copyWith(
+                color: AppColors.primaryText,
+              ),
+            )
+          ],
         ),
       ),
     );
