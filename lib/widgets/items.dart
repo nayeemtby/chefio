@@ -106,17 +106,16 @@ class RecipeItem extends StatelessWidget {
               ),
             ),
             const Expanded(
-              child: SizedBox(
-                  // height: 16.h,
-                  ),
+              flex: 2,
+              child: SizedBox(),
             ),
             Text(
               itemName,
               style: TxtThemes.h2
                   .copyWith(color: AppColors.primaryText.withAlpha(228)),
             ),
-            SizedBox(
-              height: 8.h,
+            const Expanded(
+              child: SizedBox(),
             ),
             Text(
               categoryName + ' * >' + requiredTime,

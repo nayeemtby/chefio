@@ -66,8 +66,7 @@ class HomeScr extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   itemCount: 12,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    mainAxisExtent:
-                        32.r + 16.h + 152.h + 16.h + 17.sp + 8.h + 12.sp + 10.r,
+                    mainAxisExtent: 264.h,
                     crossAxisCount: 2,
                     crossAxisSpacing: 24.w,
                     mainAxisSpacing: 32.h,
