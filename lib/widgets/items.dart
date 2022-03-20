@@ -31,10 +31,9 @@ class RecipeItem extends StatelessWidget {
       color: Colors.transparent,
       child: SizedBox(
         width: 152.w,
-        height: 264.h,
+        height: 264.h - (showAuthor ? 0 : (32.r + 16.h)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
           children: [
             showAuthor
                 ? Row(
@@ -106,8 +105,10 @@ class RecipeItem extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 16.h,
+            const Expanded(
+              child: SizedBox(
+                  // height: 16.h,
+                  ),
             ),
             Text(
               itemName,
