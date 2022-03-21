@@ -1,15 +1,18 @@
-import 'package:chefio/screens/pskrecover.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/buttons.dart';
 import 'package:chefio/widgets/scaffolds.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 class PinVerifyScr extends StatefulWidget {
-  const PinVerifyScr({Key? key}) : super(key: key);
+  const PinVerifyScr({
+    Key? key,
+    required this.successRoute,
+  }) : super(key: key);
+
+  final Route successRoute;
   @override
   State<PinVerifyScr> createState() => _PinVerifyScrState();
 }
@@ -39,6 +42,11 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
     ),
   );
 
+  void _handleContinue(BuildContext context) => Navigator.pushReplacement(
+        context,
+        widget.successRoute,
+      );
+
   @override
   Widget build(BuildContext context) {
     return NoAppBarScaffold(
@@ -54,12 +62,17 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 24.sp,
-                    color: AppColors.primaryText,
+                  splashFactory: InkRipple.splashFactory,
+                  borderRadius: BorderRadius.circular(56.r),
+                  child: SizedBox.square(
+                    dimension: 56.r,
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 24.sp,
+                      color: AppColors.primaryText,
+                    ),
                   ),
                 ),
               ),
@@ -114,14 +127,7 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
                         ),
                         BtnPrimary(
                           txt: 'Continue',
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (ctx) => const PostPskRecoverScr(),
-                              ),
-                            );
-                          },
+                          onTap: () => _handleContinue(context),
                         ),
                         SizedBox(
                           height: 16.h,

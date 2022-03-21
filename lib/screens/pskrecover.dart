@@ -1,3 +1,4 @@
+import 'package:chefio/screens/login.dart';
 import 'package:chefio/screens/signup.dart';
 import 'package:chefio/screens/verifycode.dart';
 import 'package:chefio/theme/colors.dart';
@@ -27,12 +28,17 @@ class PskRecoverScr extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 24.sp,
-                    color: AppColors.primaryText,
+                  splashFactory: InkRipple.splashFactory,
+                  borderRadius: BorderRadius.circular(56.r),
+                  child: SizedBox.square(
+                    dimension: 56.r,
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 24.sp,
+                      color: AppColors.primaryText,
+                    ),
                   ),
                 ),
               ),
@@ -73,7 +79,11 @@ class PskRecoverScr extends StatelessWidget {
                             Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                builder: (ctx) => const PinVerifyScr(),
+                                builder: (ctx) => PinVerifyScr(
+                                  successRoute: CupertinoPageRoute(
+                                    builder: (ctx) => const PostPskRecoverScr(),
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -111,12 +121,17 @@ class PostPskRecoverScr extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 24.sp,
-                    color: AppColors.primaryText,
+                  splashFactory: InkRipple.splashFactory,
+                  borderRadius: BorderRadius.circular(56.r),
+                  child: SizedBox.square(
+                    dimension: 56.r,
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 24.sp,
+                      color: AppColors.primaryText,
+                    ),
                   ),
                 ),
               ),
@@ -181,7 +196,13 @@ class PostPskRecoverScr extends StatelessWidget {
                         ),
                         BtnPrimary(
                           txt: 'Sign Up',
-                          onTap: () {},
+                          onTap: () => Navigator.pushAndRemoveUntil(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (ctx) => const LoginScr(),
+                            ),
+                            (route) => !Navigator.canPop(context),
+                          ),
                         ),
                       ],
                     ),

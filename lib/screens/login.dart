@@ -1,4 +1,5 @@
 import 'package:chefio/screens/home.dart';
+import 'package:chefio/screens/pskrecover.dart';
 import 'package:chefio/screens/signup.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
@@ -67,10 +68,21 @@ class LoginScr extends StatelessWidget {
                     SizedBox(height: 24.h),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot password?',
-                        style:
-                            TxtThemes.p2.copyWith(color: AppColors.primaryText),
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (ctx) => const PskRecoverScr(),
+                          ),
+                        ),
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text(
+                            'Forgot password?',
+                            style: TxtThemes.p2
+                                .copyWith(color: AppColors.primaryText),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(height: 36.h),
