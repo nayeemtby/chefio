@@ -4,6 +4,7 @@ import 'package:chefio/screens/verifycode.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/buttons.dart';
+import 'package:chefio/widgets/dialogs.dart';
 import 'package:chefio/widgets/input.dart';
 import 'package:chefio/widgets/scaffolds.dart';
 import 'package:flutter/cupertino.dart';
@@ -195,14 +196,25 @@ class PostPskRecoverScr extends StatelessWidget {
                           height: 24.h,
                         ),
                         BtnPrimary(
-                          txt: 'Sign Up',
-                          onTap: () => Navigator.pushAndRemoveUntil(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (ctx) => const LoginScr(),
-                            ),
-                            (route) => !Navigator.canPop(context),
-                          ),
+                          txt: 'Reset Password',
+                          onTap: () {
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (ctx) => SuccessDialog(
+                                title: 'Reset Success',
+                                subtitle:
+                                    'Your password was successfully reset. You can login with your new password now.',
+                                buttonText: 'Goto Login',
+                                onTap: () => Navigator.pushAndRemoveUntil(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (ctx) => const LoginScr(),
+                                  ),
+                                  (route) => !Navigator.canPop(context),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
