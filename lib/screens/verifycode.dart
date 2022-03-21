@@ -123,6 +123,13 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
                             );
                           },
                         ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        BtnPrimary(
+                          txt: 'Send again',
+                          onTap: () {},
+                        ),
                       ],
                     ),
                     const SizedBox(),
