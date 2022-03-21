@@ -543,7 +543,10 @@ class _BottomBarState extends State<_BottomBar> {
                                 subtitle:
                                     'Your recipe has been uploaded, you can see it on your profile',
                                 buttonText: 'Back to Home',
-                                onTap: () => Navigator.pop(context),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
                               ),
                             );
                           }
@@ -561,56 +564,6 @@ class _BottomBarState extends State<_BottomBar> {
               );
             });
           }),
-    );
-  }
-}
-
-class _SuccessDialog extends StatelessWidget {
-  const _SuccessDialog({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: AppColors.white,
-      child: Padding(
-        padding: EdgeInsets.all(48.r),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.check_circle_outline_outlined,
-              size: 140.sp,
-              color: AppColors.primary,
-            ),
-            SizedBox(
-              height: 32.h,
-            ),
-            Text(
-              'Upload Success',
-              style: TxtThemes.h1.copyWith(
-                color: AppColors.primaryText.withAlpha(228),
-              ),
-            ),
-            SizedBox(height: 8.h),
-            Text(
-              'Your recipe has been uploaded, you can see it on your profile',
-              textAlign: TextAlign.center,
-              style: TxtThemes.p2.copyWith(color: AppColors.primaryText),
-            ),
-            SizedBox(height: 24.h),
-            BtnPrimary(
-              txt: 'Back to Home',
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            )
-          ],
-        ),
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.r),
-      ),
     );
   }
 }
