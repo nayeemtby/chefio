@@ -32,6 +32,7 @@ class _HomeScrState extends State<HomeScr> {
         pageController: pageController,
       ),
       body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: const [
           _HomeBody(),
