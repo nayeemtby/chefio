@@ -1,4 +1,5 @@
 import 'package:chefio/screens/home.dart';
+import 'package:chefio/screens/verifycode.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/buttons.dart';
@@ -10,6 +11,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignupScr extends StatelessWidget {
   const SignupScr({Key? key}) : super(key: key);
+
+  void _handleSignup(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (ctx) => PinVerifyScr(
+          successRoute: CupertinoPageRoute(
+            builder: (ctx) => const SignupSuccessScr(),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,13 +107,7 @@ class SignupScr extends StatelessWidget {
                           ),
                           BtnPrimary(
                             txt: 'Sign Up',
-                            onTap: () => Navigator.pushAndRemoveUntil(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (ctx) => const HomeScr(),
-                              ),
-                              (route) => !Navigator.canPop(context),
-                            ),
+                            onTap: () => _handleSignup(context),
                           ),
                         ],
                       ),
@@ -258,7 +266,11 @@ class SignupSuccessScr extends StatelessWidget {
               SizedBox(height: 24.h),
               BtnPrimary(
                 txt: 'Continue',
-                onTap: () {},
+                onTap: () => Navigator.pushAndRemoveUntil(
+                  context,
+                  CupertinoPageRoute(builder: (ctx) => const HomeScr()),
+                  (route) => !Navigator.canPop(context),
+                ),
               )
             ],
           ),
