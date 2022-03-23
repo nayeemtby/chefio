@@ -206,3 +206,50 @@ class PasswordCondition extends StatelessWidget {
     );
   }
 }
+
+class SignupSuccessScr extends StatelessWidget {
+  const SignupSuccessScr({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NoAppBarScaffold(
+        body: SingleChildScrollView(
+      child: SizedBox(
+        height: 1.sh,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.check_circle_outline_outlined,
+                size: 140.sp,
+                color: AppColors.primary,
+              ),
+              SizedBox(
+                height: 32.h,
+              ),
+              Text(
+                'Signup Complete',
+                style: TxtThemes.h1.copyWith(
+                  color: AppColors.primaryText.withAlpha(228),
+                ),
+              ),
+              SizedBox(height: 8.h),
+              Text(
+                'You can continue using the app',
+                textAlign: TextAlign.center,
+                style: TxtThemes.p2.copyWith(color: AppColors.primaryText),
+              ),
+              SizedBox(height: 24.h),
+              BtnPrimary(
+                txt: 'Continue',
+                onTap: () {},
+              )
+            ],
+          ),
+        ),
+      ),
+    ));
+  }
+}
