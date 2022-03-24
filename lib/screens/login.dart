@@ -1,8 +1,12 @@
+import 'package:chefio/screens/home.dart';
+import 'package:chefio/screens/pskrecover.dart';
+import 'package:chefio/screens/signup.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/buttons.dart';
 import 'package:chefio/widgets/input.dart';
 import 'package:chefio/widgets/scaffolds.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -64,16 +68,33 @@ class LoginScr extends StatelessWidget {
                     SizedBox(height: 24.h),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot password?',
-                        style:
-                            TxtThemes.p2.copyWith(color: AppColors.primaryText),
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (ctx) => const PskRecoverScr(),
+                          ),
+                        ),
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text(
+                            'Forgot password?',
+                            style: TxtThemes.p2
+                                .copyWith(color: AppColors.primaryText),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(height: 36.h),
                     BtnPrimary(
                       txt: 'Login',
-                      onTap: () {},
+                      onTap: () => Navigator.pushAndRemoveUntil(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (ctx) => const HomeScr(),
+                        ),
+                        (route) => !Navigator.canPop(context),
+                      ),
                     ),
                   ],
                 ),
@@ -118,10 +139,21 @@ class LoginScr extends StatelessWidget {
                             color: AppColors.primaryText,
                           ),
                         ),
-                        Text(
-                          'Sign Up',
-                          style: TxtThemes.h3.copyWith(
-                            color: AppColors.primary,
+                        GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (ctx) => const SignupScr(),
+                            ),
+                          ),
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Text(
+                              'Sign Up',
+                              style: TxtThemes.h3.copyWith(
+                                color: AppColors.primary,
+                              ),
+                            ),
                           ),
                         )
                       ],

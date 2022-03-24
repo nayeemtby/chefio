@@ -8,25 +8,63 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class UploadScr extends StatelessWidget {
+class UploadScr extends StatefulWidget {
   const UploadScr({Key? key}) : super(key: key);
+
+  @override
+  State<UploadScr> createState() => _UploadScrState();
+}
+
+class _UploadScrState extends State<UploadScr> with TickerProviderStateMixin {
+  late final TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(
+      length: 2,
+      vsync: this,
+      animationDuration: const Duration(milliseconds: 200),
+    );
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const _BottomBar(),
+      bottomNavigationBar: _BottomBar(
+        tabController: tabController,
+      ),
       body: TopBarScaffold(
         topBarChildren: [
-          Text(
-            'Cancel',
-            style: TxtThemes.h2.copyWith(color: AppColors.secondary),
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Text(
+                'Cancel',
+                style: TxtThemes.h2.copyWith(color: AppColors.secondary),
+              ),
+            ),
           ),
           Text(
             '1/2',
             style: TxtThemes.h2.copyWith(color: AppColors.primaryText),
           )
         ],
-        body: const _Page2(),
+        body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: tabController,
+          children: const [
+            _Page1(),
+            _Page2(),
+          ],
+        ),
       ),
     );
   }
@@ -40,6 +78,7 @@ class _Page2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: ScrollController(),
       physics: const BouncingScrollPhysics(),
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -443,28 +482,88 @@ class _Page1 extends StatelessWidget {
 //   }
 // }
 
-class _BottomBar extends StatelessWidget {
-  const _BottomBar({Key? key}) : super(key: key);
+class _BottomBar extends StatefulWidget {
+  const _BottomBar({
+    Key? key,
+    required this.tabController,
+  }) : super(key: key);
+  final TabController tabController;
 
+  @override
+  State<_BottomBar> createState() => _BottomBarState();
+}
+
+class _BottomBarState extends State<_BottomBar> {
+  bool secondPage = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
-      child: BtnPrimary(
-        txt: 'Next',
-        onTap: () {
-          showCupertinoDialog(
-            context: context,
-            builder: (ctx) => SuccessDialog(
-              title: 'Upload Success',
-              subtitle:
-                  'Your recipe has been uploaded, you can see it on your profile',
-              buttonText: 'Back to Home',
-              onTap: () => Navigator.pop(context),
-            ),
-          );
-        },
-      ),
+      child: TweenAnimationBuilder<double>(
+          duration: const Duration(milliseconds: 200),
+          tween: Tween<double>(begin: 1, end: secondPage ? 1 : 0),
+          builder: (context, value, _) {
+            return LayoutBuilder(builder: (context, constraints) {
+              return SizedBox(
+                width: constraints.maxWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: ((constraints.maxWidth - 16.w) / 2) * value,
+                      child: ClipRect(
+                        child: SizedBox(
+                          width: (constraints.maxWidth - 16.w) / 2,
+                          child: BtnPrimary(
+                            txt: value > 0.4 ? 'Back' : 'B',
+                            onTap: () {
+                              if (secondPage) {
+                                widget.tabController.animateTo(0);
+                                setState(() {
+                                  secondPage = false;
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 16.w * value,
+                    ),
+                    Expanded(
+                      child: BtnPrimary(
+                        txt: secondPage ? 'Finish' : 'Next',
+                        onTap: () {
+                          if (secondPage) {
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (ctx) => SuccessDialog(
+                                title: 'Upload Success',
+                                subtitle:
+                                    'Your recipe has been uploaded, you can see it on your profile',
+                                buttonText: 'Back to Home',
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            );
+                          }
+                          if (!secondPage) {
+                            widget.tabController.animateTo(1);
+                            setState(() {
+                              secondPage = true;
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            });
+          }),
     );
   }
 }

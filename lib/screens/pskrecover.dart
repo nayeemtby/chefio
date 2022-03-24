@@ -1,8 +1,10 @@
+import 'package:chefio/screens/login.dart';
 import 'package:chefio/screens/signup.dart';
 import 'package:chefio/screens/verifycode.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/buttons.dart';
+import 'package:chefio/widgets/dialogs.dart';
 import 'package:chefio/widgets/input.dart';
 import 'package:chefio/widgets/scaffolds.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,12 +29,17 @@ class PskRecoverScr extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 24.sp,
-                    color: AppColors.primaryText,
+                  splashFactory: InkRipple.splashFactory,
+                  borderRadius: BorderRadius.circular(56.r),
+                  child: SizedBox.square(
+                    dimension: 56.r,
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 24.sp,
+                      color: AppColors.primaryText,
+                    ),
                   ),
                 ),
               ),
@@ -73,7 +80,11 @@ class PskRecoverScr extends StatelessWidget {
                             Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                builder: (ctx) => const PinVerifyScr(),
+                                builder: (ctx) => PinVerifyScr(
+                                  successRoute: CupertinoPageRoute(
+                                    builder: (ctx) => const PostPskRecoverScr(),
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -111,12 +122,17 @@ class PostPskRecoverScr extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 24.sp,
-                    color: AppColors.primaryText,
+                  splashFactory: InkRipple.splashFactory,
+                  borderRadius: BorderRadius.circular(56.r),
+                  child: SizedBox.square(
+                    dimension: 56.r,
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 24.sp,
+                      color: AppColors.primaryText,
+                    ),
                   ),
                 ),
               ),
@@ -180,8 +196,25 @@ class PostPskRecoverScr extends StatelessWidget {
                           height: 24.h,
                         ),
                         BtnPrimary(
-                          txt: 'Sign Up',
-                          onTap: () {},
+                          txt: 'Reset Password',
+                          onTap: () {
+                            showCupertinoDialog(
+                              context: context,
+                              builder: (ctx) => SuccessDialog(
+                                title: 'Reset Success',
+                                subtitle:
+                                    'Your password was successfully reset. You can login with your new password now.',
+                                buttonText: 'Goto Login',
+                                onTap: () => Navigator.pushAndRemoveUntil(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (ctx) => const LoginScr(),
+                                  ),
+                                  (route) => !Navigator.canPop(context),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
