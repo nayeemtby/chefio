@@ -13,9 +13,10 @@ class ProfileScr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool canPop = Navigator.canPop(context);
     return TopBarScaffold(
       topBarChildren: [
-        Navigator.canPop(context)
+        canPop
             ? InkWell(
                 onTap: () => Navigator.pop(context),
                 splashFactory: InkRipple.splashFactory,
@@ -40,7 +41,7 @@ class ProfileScr extends StatelessWidget {
             ),
             context: context,
             builder: (ctx) => _ProfileOptionSheet(
-              canLogOut: Navigator.canPop(context),
+              canLogOut: !canPop,
             ),
           ),
           splashFactory: InkRipple.splashFactory,
