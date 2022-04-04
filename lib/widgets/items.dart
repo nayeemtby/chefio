@@ -28,31 +28,40 @@ class RecipeItem extends StatelessWidget {
   final String requiredTime;
   final bool showAuthor;
 
+  void _showDetails(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (ctx) => const DetailsScr(),
+      ),
+    );
+  }
+
+  void _showProfile(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => const ProfileScr(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (ctx) => DetailsScr(),
-          ),
-        ),
+        onTap: () => _showDetails(context),
         child: SizedBox(
           width: 152.w,
           height: 264.h - (showAuthor ? 0 : (32.r + 16.h)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Author
               showAuthor
                   ? InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => const ProfileScr(),
-                        ),
-                      ),
+                      onTap: () => _showProfile(context),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -85,6 +94,8 @@ class RecipeItem extends StatelessWidget {
                       height: 16.h,
                     )
                   : const SizedBox(),
+
+              // Recipe cover image and like button
               ClipRRect(
                 borderRadius: BorderRadius.circular(16.r),
                 child: Stack(
@@ -128,6 +139,8 @@ class RecipeItem extends StatelessWidget {
                 flex: 2,
                 child: SizedBox(),
               ),
+
+              // Name, category and time
               Text(
                 itemName,
                 style: TxtThemes.h2

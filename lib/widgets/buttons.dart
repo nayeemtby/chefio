@@ -18,6 +18,7 @@ class BtnPrimary extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? child;
   final double? vpad;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -35,11 +36,12 @@ class BtnPrimary extends StatelessWidget {
             ),
         style: ElevatedButton.styleFrom(
           elevation: 0,
+          padding: EdgeInsets.symmetric(vertical: vpad ?? 20.h),
           primary: child == null ? AppColors.primary : AppColors.secondary,
           onPrimary: AppColors.white,
-          padding: EdgeInsets.symmetric(vertical: vpad ?? 20.h),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32.r),
+          ),
         ),
       ),
     );
@@ -57,6 +59,7 @@ class CatRadio extends StatelessWidget {
   final String text;
   final String groupValue;
   final String value;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,6 +74,88 @@ class CatRadio extends StatelessWidget {
           color:
               value == groupValue ? AppColors.white : AppColors.secondaryText,
         ),
+      ),
+    );
+  }
+}
+
+class BtnBack extends StatelessWidget {
+  const BtnBack({
+    Key? key,
+  }) : super(key: key);
+
+  void _goBack(BuildContext context) {
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => _goBack(context),
+      splashFactory: InkRipple.splashFactory,
+      borderRadius: BorderRadius.circular(56.r),
+      child: SizedBox.square(
+        dimension: 56.r,
+        child: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          size: 24.sp,
+          color: AppColors.primaryText,
+        ),
+      ),
+    );
+  }
+}
+
+class BtnSecondary extends StatelessWidget {
+  const BtnSecondary({
+    Key? key,
+    this.txt,
+    this.width,
+    this.onTap,
+    this.child,
+  }) : super(key: key);
+
+  final String? txt;
+  final Widget? child;
+  final double? width;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: OutlinedButton(
+        onPressed: onTap,
+        style: OutlinedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 16.h),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32.r),
+            side: BorderSide(
+              width: 1.sp,
+              color: AppColors.form,
+            ),
+          ),
+        ),
+        child: child ??
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.add,
+                  size: 24.sp,
+                  color: AppColors.primaryText.withAlpha(228),
+                ),
+                SizedBox(
+                  width: 4.w,
+                ),
+                Text(
+                  txt ?? 'Button',
+                  style: TxtThemes.p2.copyWith(
+                    color: AppColors.primaryText.withAlpha(228),
+                  ),
+                )
+              ],
+            ),
       ),
     );
   }

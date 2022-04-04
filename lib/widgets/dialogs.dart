@@ -35,6 +35,8 @@ class SuccessDialog extends StatelessWidget {
             SizedBox(
               height: 32.h,
             ),
+
+            // Title and subtitle
             Text(
               title,
               style: TxtThemes.h1.copyWith(
@@ -48,6 +50,8 @@ class SuccessDialog extends StatelessWidget {
               style: TxtThemes.p2.copyWith(color: AppColors.primaryText),
             ),
             SizedBox(height: 24.h),
+
+            // Button
             BtnPrimary(
               txt: buttonText,
               onTap: onTap,

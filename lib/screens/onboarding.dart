@@ -8,6 +8,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingScr extends StatelessWidget {
   const OnboardingScr({Key? key}) : super(key: key);
+  void _handleStart(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (ctx) => const LoginScr(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +28,13 @@ class OnboardingScr extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Image
               ConstrainedBox(
                 constraints: BoxConstraints(maxHeight: 0.6.sh),
                 child: Image.asset('assets/images/onboarding.png'),
               ),
+
+              // Texts
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.w),
                 child: Column(
@@ -47,18 +58,17 @@ class OnboardingScr extends StatelessWidget {
                   ],
                 ),
               ),
+
+              // Button
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.w),
                 child: BtnPrimary(
                   txt: 'Get Started',
-                  onTap: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (ctx) => const LoginScr(),
-                    ),
-                  ),
+                  onTap: () => _handleStart(context),
                 ),
               ),
+
+              // For space distribution
               const SizedBox()
             ],
           ),

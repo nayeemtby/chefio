@@ -1,8 +1,8 @@
 import 'package:chefio/screens/login.dart';
-import 'package:chefio/screens/signup.dart';
 import 'package:chefio/screens/verifycode.dart';
 import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
+import 'package:chefio/widgets/auth.dart';
 import 'package:chefio/widgets/buttons.dart';
 import 'package:chefio/widgets/dialogs.dart';
 import 'package:chefio/widgets/input.dart';
@@ -13,6 +13,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PskRecoverScr extends StatelessWidget {
   const PskRecoverScr({Key? key}) : super(key: key);
+
+  void _handleContinue(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (ctx) => PinVerifyScr(
+          successRoute: CupertinoPageRoute(
+            builder: (ctx) => const PostPskRecoverScr(),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +40,9 @@ class PskRecoverScr extends StatelessWidget {
               SizedBox(
                 height: 32.h,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  splashFactory: InkRipple.splashFactory,
-                  borderRadius: BorderRadius.circular(56.r),
-                  child: SizedBox.square(
-                    dimension: 56.r,
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      size: 24.sp,
-                      color: AppColors.primaryText,
-                    ),
-                  ),
-                ),
+                child: BtnBack(),
               ),
               Expanded(
                 child: Column(
@@ -50,6 +51,7 @@ class PskRecoverScr extends StatelessWidget {
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // Title and subtitle
                         Text(
                           'Password recovery',
                           style: TxtThemes.h1
@@ -62,6 +64,8 @@ class PskRecoverScr extends StatelessWidget {
                               .copyWith(color: AppColors.secondaryText),
                         ),
                         SizedBox(height: 32.h),
+
+                        // Input Field
                         TxtField(
                           hint: 'Email',
                           inputType: TextInputType.emailAddress,
@@ -74,23 +78,16 @@ class PskRecoverScr extends StatelessWidget {
                         SizedBox(
                           height: 24.h,
                         ),
+
+                        // Button
                         BtnPrimary(
                           txt: 'Continue',
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (ctx) => PinVerifyScr(
-                                  successRoute: CupertinoPageRoute(
-                                    builder: (ctx) => const PostPskRecoverScr(),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
+                          onTap: () => _handleContinue(context),
                         ),
                       ],
                     ),
+
+                    // For space distribution
                     const SizedBox(),
                     const SizedBox(),
                   ],
@@ -107,6 +104,25 @@ class PskRecoverScr extends StatelessWidget {
 class PostPskRecoverScr extends StatelessWidget {
   const PostPskRecoverScr({Key? key}) : super(key: key);
 
+  _handleReset(BuildContext context) {
+    showCupertinoDialog(
+      context: context,
+      builder: (ctx) => SuccessDialog(
+        title: 'Reset Success',
+        subtitle:
+            'Your password was successfully reset. You can login with your new password now.',
+        buttonText: 'Goto Login',
+        onTap: () => Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(
+            builder: (ctx) => const LoginScr(),
+          ),
+          (route) => !Navigator.canPop(context),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return NoAppBarScaffold(
@@ -120,22 +136,7 @@ class PostPskRecoverScr extends StatelessWidget {
               SizedBox(
                 height: 32.h,
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  splashFactory: InkRipple.splashFactory,
-                  borderRadius: BorderRadius.circular(56.r),
-                  child: SizedBox.square(
-                    dimension: 56.r,
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      size: 24.sp,
-                      color: AppColors.primaryText,
-                    ),
-                  ),
-                ),
-              ),
+              const Align(alignment: Alignment.centerLeft, child: BtnBack()),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -143,6 +144,7 @@ class PostPskRecoverScr extends StatelessWidget {
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        // Title and subtitle
                         Text(
                           'Password recovery',
                           style: TxtThemes.h1
@@ -155,6 +157,8 @@ class PostPskRecoverScr extends StatelessWidget {
                               .copyWith(color: AppColors.secondaryText),
                         ),
                         SizedBox(height: 32.h),
+
+                        // Input field
                         TxtField(
                           hint: 'Password',
                           inputType: TextInputType.visiblePassword,
@@ -171,6 +175,8 @@ class PostPskRecoverScr extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 24.h),
+
+                        // Status
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -195,29 +201,16 @@ class PostPskRecoverScr extends StatelessWidget {
                         SizedBox(
                           height: 24.h,
                         ),
+
+                        // Button
                         BtnPrimary(
                           txt: 'Reset Password',
-                          onTap: () {
-                            showCupertinoDialog(
-                              context: context,
-                              builder: (ctx) => SuccessDialog(
-                                title: 'Reset Success',
-                                subtitle:
-                                    'Your password was successfully reset. You can login with your new password now.',
-                                buttonText: 'Goto Login',
-                                onTap: () => Navigator.pushAndRemoveUntil(
-                                  context,
-                                  CupertinoPageRoute(
-                                    builder: (ctx) => const LoginScr(),
-                                  ),
-                                  (route) => !Navigator.canPop(context),
-                                ),
-                              ),
-                            );
-                          },
+                          onTap: () => _handleReset(context),
                         ),
                       ],
                     ),
+
+                    // For space distribution
                     const SizedBox(),
                     const SizedBox(),
                   ],

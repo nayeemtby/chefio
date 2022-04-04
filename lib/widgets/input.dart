@@ -26,6 +26,7 @@ class TxtField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      // General Options
       obscureText: obscure,
       maxLines: singleLine ? 1 : null,
       cursorColor: AppColors.primary,
@@ -34,6 +35,8 @@ class TxtField extends StatelessWidget {
       style: singleLine
           ? TxtThemes.p2.copyWith(color: AppColors.primaryText)
           : TxtThemes.s.copyWith(color: AppColors.primaryText),
+
+      // Decoration
       decoration: InputDecoration(
         // Misc
         hintText: hint,
@@ -90,17 +93,23 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      // General Options
       maxLines: 1,
       cursorColor: AppColors.primary,
       keyboardType: TextInputType.text,
       style: TxtThemes.p2.copyWith(color: AppColors.primaryText),
+
+      // Decoration
       decoration: InputDecoration(
+        // Misc
         hintText: 'Search',
         hintStyle: TxtThemes.p2.copyWith(color: AppColors.secondaryText),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 20.h),
         filled: true,
         fillColor: AppColors.form,
+
+        // Borders
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(32.r),
           borderSide: BorderSide.none,
@@ -108,6 +117,8 @@ class SearchBar extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(32.r),
             borderSide: BorderSide.none),
+
+        // Prefix
         prefixIconConstraints: const BoxConstraints(minWidth: 0),
         prefixIcon: Row(
           mainAxisSize: MainAxisSize.min,
