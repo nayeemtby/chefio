@@ -21,13 +21,6 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
   final FocusNode pinFocusNode = FocusNode();
   final TextEditingController pinController = TextEditingController();
 
-  @override
-  void dispose() {
-    pinFocusNode.dispose();
-    pinController.dispose();
-    super.dispose();
-  }
-
   final PinTheme defaultPinTheme = PinTheme(
     height: 72.r,
     width: 72.r,
@@ -42,10 +35,19 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
     ),
   );
 
+  @override
+  void dispose() {
+    pinFocusNode.dispose();
+    pinController.dispose();
+    super.dispose();
+  }
+
   void _handleContinue(BuildContext context) => Navigator.pushReplacement(
         context,
         widget.successRoute,
       );
+
+  void _handleResend() {}
 
   @override
   Widget build(BuildContext context) {
@@ -60,21 +62,9 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
               SizedBox(
                 height: 32.h,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  splashFactory: InkRipple.splashFactory,
-                  borderRadius: BorderRadius.circular(56.r),
-                  child: SizedBox.square(
-                    dimension: 56.r,
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      size: 24.sp,
-                      color: AppColors.primaryText,
-                    ),
-                  ),
-                ),
+                child: BtnBack(),
               ),
               Expanded(
                 child: Column(
@@ -82,6 +72,7 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
                   children: [
                     Column(
                       mainAxisSize: MainAxisSize.min,
+                      // Title and subtitle
                       children: [
                         Text(
                           'Enter verification code',
@@ -95,6 +86,8 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
                               .copyWith(color: AppColors.secondaryText),
                         ),
                         SizedBox(height: 32.h),
+
+                        // Input Field
                         Pinput(
                           controller: pinController,
                           focusNode: pinFocusNode,
@@ -107,6 +100,8 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
                         SizedBox(
                           height: 48.h,
                         ),
+
+                        // Status
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -125,6 +120,8 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
                         SizedBox(
                           height: 24.h,
                         ),
+
+                        // Buttons
                         BtnPrimary(
                           txt: 'Continue',
                           onTap: () => _handleContinue(context),
@@ -134,10 +131,12 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
                         ),
                         BtnPrimary(
                           txt: 'Send again',
-                          onTap: () {},
+                          onTap: () => _handleResend(),
                         ),
                       ],
                     ),
+
+                    // For Space distribution
                     const SizedBox(),
                     const SizedBox(),
                   ],

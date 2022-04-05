@@ -3,6 +3,7 @@ import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/buttons.dart';
 import 'package:chefio/widgets/dialogs.dart';
 import 'package:chefio/widgets/input.dart';
+import 'package:chefio/widgets/misc.dart';
 import 'package:chefio/widgets/scaffolds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,16 +43,7 @@ class _UploadScrState extends State<UploadScr> with TickerProviderStateMixin {
       ),
       body: TopBarScaffold(
         topBarChildren: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: Text(
-                'Cancel',
-                style: TxtThemes.h2.copyWith(color: AppColors.secondary),
-              ),
-            ),
-          ),
+          const _BtnCancel(),
           Text(
             '1/2',
             style: TxtThemes.h2.copyWith(color: AppColors.primaryText),
@@ -64,6 +56,127 @@ class _UploadScrState extends State<UploadScr> with TickerProviderStateMixin {
             _Page1(),
             _Page2(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomBar extends StatefulWidget {
+  const _BottomBar({
+    Key? key,
+    required this.tabController,
+  }) : super(key: key);
+  final TabController tabController;
+
+  @override
+  State<_BottomBar> createState() => _BottomBarState();
+}
+
+class _BottomBarState extends State<_BottomBar> {
+  bool secondPage = false;
+
+  void _finish(BuildContext context) {
+    if (secondPage) {
+      showCupertinoDialog(
+        context: context,
+        builder: (ctx) => SuccessDialog(
+          title: 'Upload Success',
+          subtitle:
+              'Your recipe has been uploaded, you can see it on your profile',
+          buttonText: 'Back to Home',
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+        ),
+      );
+    } else {
+      widget.tabController.animateTo(1);
+      setState(() {
+        secondPage = true;
+      });
+    }
+  }
+
+  void _handleBack(BuildContext context) {
+    if (secondPage) {
+      widget.tabController.animateTo(0);
+      setState(() {
+        secondPage = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+      child: TweenAnimationBuilder<double>(
+          // Tween options
+          duration: const Duration(milliseconds: 200),
+          tween: Tween<double>(begin: 1, end: secondPage ? 1 : 0),
+
+          // Prebuilt button
+          child: BtnPrimary(
+            txt: secondPage ? 'Finish' : 'Next',
+            onTap: () => _finish(context),
+          ),
+
+          // Builder
+          builder: (context, value, nextButton) {
+            return LayoutBuilder(builder: (context, constraints) {
+              return SizedBox(
+                width: constraints.maxWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Back button
+                    SizedBox(
+                      width: ((constraints.maxWidth - 16.w) / 2) * value,
+                      child: ClipRect(
+                        child: BtnPrimary(
+                          width: (constraints.maxWidth - 16.w) / 2,
+                          txt: value > 0.4 ? 'Back' : 'B',
+                          onTap: () => _handleBack(context),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 16.w * value,
+                    ),
+
+                    // Next Button
+                    Expanded(
+                      child: nextButton ?? const SizedBox(),
+                    ),
+                  ],
+                ),
+              );
+            });
+          }),
+    );
+  }
+}
+
+class _BtnCancel extends StatelessWidget {
+  const _BtnCancel({
+    Key? key,
+  }) : super(key: key);
+
+  void _cancel(BuildContext context) {
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => _cancel(context),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Text(
+          'Cancel',
+          style: TxtThemes.h2.copyWith(color: AppColors.secondary),
         ),
       ),
     );
@@ -89,6 +202,8 @@ class _Page2 extends StatelessWidget {
             SizedBox(
               height: 46.h,
             ),
+
+            // Ingredients section
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -116,7 +231,7 @@ class _Page2 extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            const _BtnAdd(
+            const BtnSecondary(
               txt: 'Ingredient',
             ),
             SizedBox(
@@ -133,6 +248,8 @@ class _Page2 extends StatelessWidget {
             SizedBox(
               height: 24.h,
             ),
+
+            // Steps section
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -159,7 +276,7 @@ class _Page2 extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            const _BtnAdd(
+            const BtnSecondary(
               txt: 'Step',
             )
           ],
@@ -186,23 +303,12 @@ class _StepItem extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Material(
-                color: AppColors.primaryText.withAlpha(228),
-                borderRadius: BorderRadius.circular(24.r),
-                child: SizedBox.square(
-                  dimension: 24.r,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      (index + 1).toString(),
-                      style: TxtThemes.s.copyWith(color: AppColors.white),
-                    ),
-                  ),
-                ),
-              ),
+              StepIndex(index: (index + 1).toString()),
               SizedBox(
                 height: 16.h,
               ),
+
+              // Drag handle
               ReorderableDragStartListener(
                 index: index,
                 child: Icon(
@@ -216,6 +322,8 @@ class _StepItem extends StatelessWidget {
           SizedBox(
             width: 8.w,
           ),
+
+          // Input
           const Expanded(
             child: TxtField(
               hint: 'Describe the process in steps',
@@ -225,51 +333,6 @@ class _StepItem extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class _BtnAdd extends StatelessWidget {
-  const _BtnAdd({
-    Key? key,
-    required this.txt,
-  }) : super(key: key);
-  final String txt;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: OutlinedButton(
-          onPressed: () {},
-          style: OutlinedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 16.h),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32.r),
-              side: BorderSide(
-                width: 1.sp,
-                color: AppColors.form,
-              ),
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.add,
-                size: 24.sp,
-                color: AppColors.primaryText.withAlpha(228),
-              ),
-              SizedBox(
-                width: 4.w,
-              ),
-              Text(
-                txt,
-                style: TxtThemes.p2.copyWith(
-                  color: AppColors.primaryText.withAlpha(228),
-                ),
-              )
-            ],
-          )),
     );
   }
 }
@@ -290,6 +353,7 @@ class _IngredientItem extends StatelessWidget {
       ),
       child: Row(
         children: [
+          // Drag handle
           ReorderableDragStartListener(
             index: index,
             child: Icon(
@@ -301,6 +365,8 @@ class _IngredientItem extends StatelessWidget {
           SizedBox(
             width: 12.w,
           ),
+
+          // Input
           Expanded(
             child: TxtField(
               hint: 'Enter Ingredient $index',
@@ -329,47 +395,14 @@ class _Page1 extends StatelessWidget {
             SizedBox(
               height: 32.h,
             ),
-            DecoratedBox(
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.form, width: 2.sp),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(16.r),
-                child: SizedBox(
-                  height: 160.r,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.image,
-                        size: 56.r,
-                        color: AppColors.secondaryText,
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Text(
-                        'Add cover photo',
-                        style:
-                            TxtThemes.h3.copyWith(color: AppColors.primaryText),
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      Text(
-                        '(Up to 12 MB)',
-                        style: TxtThemes.s
-                            .copyWith(color: AppColors.secondaryText),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+
+            // Cover photo
+            const _AddCoverPhoto(),
             SizedBox(
               height: 24.h,
             ),
+
+            // Recipe name
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -388,6 +421,8 @@ class _Page1 extends StatelessWidget {
             SizedBox(
               height: 24.h,
             ),
+
+            // Recipe description
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -407,6 +442,8 @@ class _Page1 extends StatelessWidget {
             SizedBox(
               height: 24.h,
             ),
+
+            // Duration slider
             Row(
               children: [
                 Text(
@@ -423,42 +460,107 @@ class _Page1 extends StatelessWidget {
             SizedBox(
               height: 16.h,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '<10',
-                  style: TxtThemes.h3.copyWith(color: AppColors.primary),
-                ),
-                Text(
-                  '30',
-                  style: TxtThemes.h3.copyWith(color: AppColors.primary),
-                ),
-                Text(
-                  '60<',
-                  style: TxtThemes.h3.copyWith(color: AppColors.primary),
-                ),
-              ],
+            const _DurationSlider(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DurationSlider extends StatelessWidget {
+  const _DurationSlider({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Slider Values
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '<10',
+              style: TxtThemes.h3.copyWith(color: AppColors.primary),
             ),
-            SizedBox(
-              height: 8.h,
+            Text(
+              '30',
+              style: TxtThemes.h3.copyWith(color: AppColors.primary),
             ),
-            SliderTheme(
-              data: SliderThemeData(
-                overlayShape: SliderComponentShape.noOverlay,
-              ),
-              child: Slider(
-                label: '20',
-                min: 10,
-                max: 60,
-                activeColor: AppColors.primary,
-                divisions: 50,
-                inactiveColor: AppColors.form,
-                value: 20,
-                onChanged: (numnum) {},
-              ),
+            Text(
+              '60<',
+              style: TxtThemes.h3.copyWith(color: AppColors.primary),
             ),
           ],
+        ),
+        SizedBox(
+          height: 8.h,
+        ),
+
+        // Slider
+        SliderTheme(
+          data: SliderThemeData(
+            overlayShape: SliderComponentShape.noOverlay,
+          ),
+          child: Slider(
+            label: '20',
+            min: 10,
+            max: 60,
+            activeColor: AppColors.primary,
+            divisions: 50,
+            inactiveColor: AppColors.form,
+            value: 20,
+            onChanged: (numnum) {},
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AddCoverPhoto extends StatelessWidget {
+  const _AddCoverPhoto({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.form, width: 2.sp),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.r),
+        child: SizedBox(
+          height: 160.r,
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.image,
+                size: 56.r,
+                color: AppColors.secondaryText,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              Text(
+                'Add cover photo',
+                style: TxtThemes.h3.copyWith(color: AppColors.primaryText),
+              ),
+              SizedBox(
+                height: 8.h,
+              ),
+              Text(
+                '(Up to 12 MB)',
+                style: TxtThemes.s.copyWith(color: AppColors.secondaryText),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -481,89 +583,3 @@ class _Page1 extends StatelessWidget {
 //     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
 //   }
 // }
-
-class _BottomBar extends StatefulWidget {
-  const _BottomBar({
-    Key? key,
-    required this.tabController,
-  }) : super(key: key);
-  final TabController tabController;
-
-  @override
-  State<_BottomBar> createState() => _BottomBarState();
-}
-
-class _BottomBarState extends State<_BottomBar> {
-  bool secondPage = false;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
-      child: TweenAnimationBuilder<double>(
-          duration: const Duration(milliseconds: 200),
-          tween: Tween<double>(begin: 1, end: secondPage ? 1 : 0),
-          builder: (context, value, _) {
-            return LayoutBuilder(builder: (context, constraints) {
-              return SizedBox(
-                width: constraints.maxWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      width: ((constraints.maxWidth - 16.w) / 2) * value,
-                      child: ClipRect(
-                        child: SizedBox(
-                          width: (constraints.maxWidth - 16.w) / 2,
-                          child: BtnPrimary(
-                            txt: value > 0.4 ? 'Back' : 'B',
-                            onTap: () {
-                              if (secondPage) {
-                                widget.tabController.animateTo(0);
-                                setState(() {
-                                  secondPage = false;
-                                });
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 16.w * value,
-                    ),
-                    Expanded(
-                      child: BtnPrimary(
-                        txt: secondPage ? 'Finish' : 'Next',
-                        onTap: () {
-                          if (secondPage) {
-                            showCupertinoDialog(
-                              context: context,
-                              builder: (ctx) => SuccessDialog(
-                                title: 'Upload Success',
-                                subtitle:
-                                    'Your recipe has been uploaded, you can see it on your profile',
-                                buttonText: 'Back to Home',
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            );
-                          }
-                          if (!secondPage) {
-                            widget.tabController.animateTo(1);
-                            setState(() {
-                              secondPage = true;
-                            });
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            });
-          }),
-    );
-  }
-}

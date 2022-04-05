@@ -5,8 +5,8 @@ import 'package:chefio/widgets/scaffolds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class NotificationScr extends StatelessWidget {
-  const NotificationScr({Key? key}) : super(key: key);
+class NotificationPage extends StatelessWidget {
+  const NotificationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,10 +113,13 @@ class _NotificationLike extends StatelessWidget {
             child: Stack(
               alignment: Alignment.topRight,
               children: [
+                // Top Image
                 CircleAvatar(
                   foregroundImage: const AssetImage('assets/images/p3.jpg'),
                   radius: 24.r,
                 ),
+
+                // Bottom Image
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -148,6 +151,7 @@ class _NotificationLike extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Names
                 RichText(
                   text: TextSpan(
                     children: [
@@ -171,6 +175,8 @@ class _NotificationLike extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                // Action and time
                 Text(
                   'liked your recipe \u2022 20 min',
                   style: TxtThemes.s.copyWith(color: AppColors.secondaryText),
@@ -178,6 +184,8 @@ class _NotificationLike extends StatelessWidget {
               ],
             ),
           ),
+
+          // Recipe cover image
           SizedBox.square(
             dimension: 64.r,
             child: ClipRRect(
@@ -208,6 +216,7 @@ class _NotificationFollow extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 12.h),
       child: Row(
         children: [
+          // User image
           CircleAvatar(
             foregroundImage: const AssetImage('assets/images/p1.jpg'),
             radius: 24.r,
@@ -215,17 +224,22 @@ class _NotificationFollow extends StatelessWidget {
           SizedBox(
             width: 16.w,
           ),
+
+          // Brief
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                // Names
                 Text(
                   'Dean Winchester',
                   style: TxtThemes.h3.copyWith(
                     color: AppColors.primaryText.withAlpha(228),
                   ),
                 ),
+
+                // Action and time
                 Text(
                   'is now following you \u2022 1h',
                   style: TxtThemes.s.copyWith(color: AppColors.secondaryText),
@@ -233,6 +247,8 @@ class _NotificationFollow extends StatelessWidget {
               ],
             ),
           ),
+
+          // Follow button
           followed
               ? SizedBox(
                   width: 88.w,
