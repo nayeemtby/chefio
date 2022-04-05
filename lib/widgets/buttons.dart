@@ -11,6 +11,7 @@ class BtnPrimary extends StatelessWidget {
     this.onTap,
     this.width = double.infinity,
     this.vpad,
+    this.color = AppColors.primary,
   }) : super(key: key);
 
   final double? width;
@@ -18,6 +19,7 @@ class BtnPrimary extends StatelessWidget {
   final VoidCallback? onTap;
   final Widget? child;
   final double? vpad;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class BtnPrimary extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           padding: EdgeInsets.symmetric(vertical: vpad ?? 20.h),
-          primary: child == null ? AppColors.primary : AppColors.secondary,
+          primary: color,
           onPrimary: AppColors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32.r),

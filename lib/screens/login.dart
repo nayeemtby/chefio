@@ -160,6 +160,8 @@ class _AlternativeSection extends StatelessWidget {
           height: 24.h,
         ),
         BtnPrimary(
+          color: AppColors.secondary,
+          onTap: () => _loginWithGoogle(context),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -174,7 +176,6 @@ class _AlternativeSection extends StatelessWidget {
               )
             ],
           ),
-          onTap: () => _loginWithGoogle(context),
         ),
         SizedBox(
           height: 24.h,
