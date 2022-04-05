@@ -110,51 +110,64 @@ class _BottomBarState extends State<_BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
-      child: TweenAnimationBuilder<double>(
-          // Tween options
-          duration: const Duration(milliseconds: 200),
-          tween: Tween<double>(begin: 1, end: secondPage ? 1 : 0),
-
-          // Prebuilt button
-          child: BtnPrimary(
-            txt: secondPage ? 'Finish' : 'Next',
-            onTap: () => _finish(context),
+    return Material(
+      color: AppColors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Divider(
+            height: 0,
+            color: AppColors.outline,
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
+            child: TweenAnimationBuilder<double>(
+                // Tween options
+                duration: const Duration(milliseconds: 200),
+                tween: Tween<double>(begin: 1, end: secondPage ? 1 : 0),
 
-          // Builder
-          builder: (context, value, nextButton) {
-            return LayoutBuilder(builder: (context, constraints) {
-              return SizedBox(
-                width: constraints.maxWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // Back button
-                    SizedBox(
-                      width: ((constraints.maxWidth - 16.w) / 2) * value,
-                      child: ClipRect(
-                        child: BtnPrimary(
-                          width: (constraints.maxWidth - 16.w) / 2,
-                          txt: value > 0.4 ? 'Back' : 'B',
-                          onTap: () => _handleBack(context),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 16.w * value,
-                    ),
-
-                    // Next Button
-                    Expanded(
-                      child: nextButton ?? const SizedBox(),
-                    ),
-                  ],
+                // Prebuilt button
+                child: BtnPrimary(
+                  txt: secondPage ? 'Finish' : 'Next',
+                  onTap: () => _finish(context),
                 ),
-              );
-            });
-          }),
+
+                // Builder
+                builder: (context, value, nextButton) {
+                  return LayoutBuilder(builder: (context, constraints) {
+                    return SizedBox(
+                      width: constraints.maxWidth,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          // Back button
+                          SizedBox(
+                            width: ((constraints.maxWidth - 16.w) / 2) * value,
+                            child: ClipRect(
+                              child: BtnSecondary(
+                                width: (constraints.maxWidth - 16.w) / 2,
+                                vpad: 20.h,
+                                text: value > 0.4 ? 'Back' : 'B',
+                                onTap: () => _handleBack(context),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 16.w * value,
+                          ),
+
+                          // Next Button
+                          Expanded(
+                            child: nextButton ?? const SizedBox(),
+                          ),
+                        ],
+                      ),
+                    );
+                  });
+                }),
+          ),
+        ],
+      ),
     );
   }
 }
