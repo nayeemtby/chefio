@@ -48,6 +48,13 @@ class BtnPrimary extends StatelessWidget {
   }
 }
 
+/// Used as category buttons in explore page.
+///
+/// Provide the category name as `text` parameter.
+///
+/// Provide the radio value as `groupValue` parameter.
+///
+/// Both parameters must be provided.
 class CatRadio extends StatelessWidget {
   const CatRadio({
     Key? key,

@@ -3,6 +3,11 @@ import 'package:chefio/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// For displaying password condition and it's status.
+///
+/// The `text` parameter is used to brief the condition. It must be provided.
+///
+/// The `isTrue` parameter is used to define the status of the condition. Defaults to false.
 class PasswordCondition extends StatelessWidget {
   const PasswordCondition({
     Key? key,

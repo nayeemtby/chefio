@@ -8,6 +8,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+/// Used to display recipe cards.
+///
+/// Use `showAuthor` parameter to control wheather to display author information or not.
 class RecipeItem extends StatelessWidget {
   const RecipeItem({
     Key? key,
