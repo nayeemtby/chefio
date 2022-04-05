@@ -231,8 +231,27 @@ class _Page2 extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            const BtnSecondary(
-              txt: 'Ingredient',
+            BtnSecondary(
+              onTap: () {},
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.add,
+                    size: 24.sp,
+                    color: AppColors.primaryText.withAlpha(228),
+                  ),
+                  SizedBox(
+                    width: 4.w,
+                  ),
+                  Text(
+                    'Ingredient',
+                    style: TxtThemes.p2.copyWith(
+                      color: AppColors.primaryText.withAlpha(228),
+                    ),
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: 24.h,
@@ -276,8 +295,27 @@ class _Page2 extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            const BtnSecondary(
-              txt: 'Step',
+            BtnSecondary(
+              onTap: () {},
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.add,
+                    size: 24.sp,
+                    color: AppColors.primaryText.withAlpha(228),
+                  ),
+                  SizedBox(
+                    width: 4.w,
+                  ),
+                  Text(
+                    'Step',
+                    style: TxtThemes.p2.copyWith(
+                      color: AppColors.primaryText.withAlpha(228),
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ),

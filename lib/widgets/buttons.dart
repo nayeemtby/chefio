@@ -118,25 +118,27 @@ class BtnBack extends StatelessWidget {
 class BtnSecondary extends StatelessWidget {
   const BtnSecondary({
     Key? key,
-    this.txt,
-    this.width,
+    this.text = 'Button',
+    this.width = double.infinity,
     this.onTap,
     this.child,
+    this.vpad,
   }) : super(key: key);
 
-  final String? txt;
+  final String text;
   final Widget? child;
   final double? width;
   final VoidCallback? onTap;
+  final double? vpad;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: width,
       child: OutlinedButton(
         onPressed: onTap,
         style: OutlinedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 16.h),
+          padding: EdgeInsets.symmetric(vertical: vpad ?? 16.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32.r),
             side: BorderSide(
@@ -146,24 +148,11 @@ class BtnSecondary extends StatelessWidget {
           ),
         ),
         child: child ??
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.add,
-                  size: 24.sp,
-                  color: AppColors.primaryText.withAlpha(228),
-                ),
-                SizedBox(
-                  width: 4.w,
-                ),
-                Text(
-                  txt ?? 'Button',
-                  style: TxtThemes.p2.copyWith(
-                    color: AppColors.primaryText.withAlpha(228),
-                  ),
-                )
-              ],
+            Text(
+              text,
+              style: TxtThemes.p2.copyWith(
+                color: AppColors.primaryText.withAlpha(228),
+              ),
             ),
       ),
     );
