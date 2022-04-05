@@ -11,85 +11,87 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NoAppBarScaffold(
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 26.h,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      child: Text(
-                        'New',
-                        style: TxtThemes.h2.copyWith(
-                          color: AppColors.primaryText.withAlpha(228),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 26.h,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        child: Text(
+                          'New',
+                          style: TxtThemes.h2.copyWith(
+                            color: AppColors.primaryText.withAlpha(228),
+                          ),
                         ),
                       ),
-                    ),
-                    const _NotificationFollow(),
-                    const _NotificationFollow(
-                      followed: true,
-                    ),
-                    const _NotificationLike(),
-                  ],
+                      const _NotificationFollow(),
+                      const _NotificationFollow(
+                        followed: true,
+                      ),
+                      const _NotificationLike(),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      child: Text(
-                        'Today',
-                        style: TxtThemes.h2.copyWith(
-                          color: AppColors.primaryText.withAlpha(228),
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        child: Text(
+                          'Today',
+                          style: TxtThemes.h2.copyWith(
+                            color: AppColors.primaryText.withAlpha(228),
+                          ),
                         ),
                       ),
-                    ),
-                    const _NotificationFollow(),
-                    const _NotificationFollow(
-                      followed: true,
-                    ),
-                    const _NotificationLike(),
-                  ],
+                      const _NotificationFollow(),
+                      const _NotificationFollow(
+                        followed: true,
+                      ),
+                      const _NotificationLike(),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      child: Text(
-                        'Earlier',
-                        style: TxtThemes.h2.copyWith(
-                          color: AppColors.primaryText.withAlpha(228),
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        child: Text(
+                          'Earlier',
+                          style: TxtThemes.h2.copyWith(
+                            color: AppColors.primaryText.withAlpha(228),
+                          ),
                         ),
                       ),
-                    ),
-                    const _NotificationFollow(),
-                    const _NotificationFollow(
-                      followed: true,
-                    ),
-                    const _NotificationLike(),
-                  ],
-                ),
-              )
-            ],
+                      const _NotificationFollow(),
+                      const _NotificationFollow(
+                        followed: true,
+                      ),
+                      const _NotificationLike(),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

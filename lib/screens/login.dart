@@ -5,7 +5,6 @@ import 'package:chefio/theme/colors.dart';
 import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/buttons.dart';
 import 'package:chefio/widgets/input.dart';
-import 'package:chefio/widgets/scaffolds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,10 +14,11 @@ class LoginScr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NoAppBarScaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
-        child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: SizedBox(
             height: 1.sh,
             child: Column(

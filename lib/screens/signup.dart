@@ -5,7 +5,6 @@ import 'package:chefio/theme/text_styles.dart';
 import 'package:chefio/widgets/auth.dart';
 import 'package:chefio/widgets/buttons.dart';
 import 'package:chefio/widgets/input.dart';
-import 'package:chefio/widgets/scaffolds.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,28 +14,23 @@ class SignupScr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NoAppBarScaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: SizedBox(
-                  height: 1.sh,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      SizedBox(), // For space distribution
-                      _EmailRegisterSection(),
-                      _AlternativeSection(),
-                    ],
-                  ),
-                ),
-              ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: SizedBox(
+            height: 1.sh,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                SizedBox(), // For space distribution
+                _EmailRegisterSection(),
+                _AlternativeSection(),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

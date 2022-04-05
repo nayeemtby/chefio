@@ -55,94 +55,96 @@ class _PinVerifyScrState extends State<PinVerifyScr> {
         body: SingleChildScrollView(
       child: SizedBox(
         height: 1.sh,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 32.h,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: BtnBack(),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      // Title and subtitle
-                      children: [
-                        Text(
-                          'Enter verification code',
-                          style: TxtThemes.h1
-                              .copyWith(color: AppColors.primaryText),
-                        ),
-                        SizedBox(height: 8.h),
-                        Text(
-                          'We\'ve sent you a verification code to your email',
-                          style: TxtThemes.p2
-                              .copyWith(color: AppColors.secondaryText),
-                        ),
-                        SizedBox(height: 32.h),
-
-                        // Input Field
-                        Pinput(
-                          controller: pinController,
-                          focusNode: pinFocusNode,
-                          defaultPinTheme: defaultPinTheme,
-                          focusedPinTheme: defaultPinTheme.copyDecorationWith(
-                              borderRadius: BorderRadius.circular(20.r),
-                              border: Border.all(
-                                  width: 1.sp, color: AppColors.primary)),
-                        ),
-                        SizedBox(
-                          height: 48.h,
-                        ),
-
-                        // Status
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Code expires in: ',
-                              style: TxtThemes.p2
-                                  .copyWith(color: AppColors.primaryText),
-                            ),
-                            Text(
-                              '03:12',
-                              style: TxtThemes.p2
-                                  .copyWith(color: AppColors.secondary),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                        ),
-
-                        // Buttons
-                        BtnPrimary(
-                          txt: 'Continue',
-                          onTap: () => _handleContinue(context),
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        BtnPrimary(
-                          txt: 'Send again',
-                          onTap: () => _handleResend(),
-                        ),
-                      ],
-                    ),
-
-                    // For Space distribution
-                    const SizedBox(),
-                    const SizedBox(),
-                  ],
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 32.h,
                 ),
-              ),
-            ],
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: BtnBack(),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        // Title and subtitle
+                        children: [
+                          Text(
+                            'Enter verification code',
+                            style: TxtThemes.h1
+                                .copyWith(color: AppColors.primaryText),
+                          ),
+                          SizedBox(height: 8.h),
+                          Text(
+                            'We\'ve sent you a verification code to your email',
+                            style: TxtThemes.p2
+                                .copyWith(color: AppColors.secondaryText),
+                          ),
+                          SizedBox(height: 32.h),
+
+                          // Input Field
+                          Pinput(
+                            controller: pinController,
+                            focusNode: pinFocusNode,
+                            defaultPinTheme: defaultPinTheme,
+                            focusedPinTheme: defaultPinTheme.copyDecorationWith(
+                                borderRadius: BorderRadius.circular(20.r),
+                                border: Border.all(
+                                    width: 1.sp, color: AppColors.primary)),
+                          ),
+                          SizedBox(
+                            height: 48.h,
+                          ),
+
+                          // Status
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Code expires in: ',
+                                style: TxtThemes.p2
+                                    .copyWith(color: AppColors.primaryText),
+                              ),
+                              Text(
+                                '03:12',
+                                style: TxtThemes.p2
+                                    .copyWith(color: AppColors.secondary),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                          ),
+
+                          // Buttons
+                          BtnPrimary(
+                            txt: 'Continue',
+                            onTap: () => _handleContinue(context),
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          BtnPrimary(
+                            txt: 'Send again',
+                            onTap: () => _handleResend(),
+                          ),
+                        ],
+                      ),
+
+                      // For Space distribution
+                      const SizedBox(),
+                      const SizedBox(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

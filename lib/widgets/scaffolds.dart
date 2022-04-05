@@ -14,9 +14,7 @@ class NoAppBarScaffold extends StatelessWidget {
       color: AppColors.white,
       child: SizedBox(
         width: double.infinity,
-        child: SafeArea(
-          child: body,
-        ),
+        child: body,
       ),
     );
   }
