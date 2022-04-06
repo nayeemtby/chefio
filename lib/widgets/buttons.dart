@@ -72,16 +72,21 @@ class CatRadio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 15.h),
+      height: 48.h,
+      padding: EdgeInsets.symmetric(
+        horizontal: 24.w,
+      ),
       decoration: BoxDecoration(
         color: value == groupValue ? AppColors.primary : AppColors.form,
         borderRadius: BorderRadius.circular(32.sp),
       ),
-      child: Text(
-        text,
-        style: TxtThemes.h3.copyWith(
-          color:
-              value == groupValue ? AppColors.white : AppColors.secondaryText,
+      child: Center(
+        child: Text(
+          text,
+          style: TxtThemes.h3.copyWith(
+            color:
+                value == groupValue ? AppColors.white : AppColors.secondaryText,
+          ),
         ),
       ),
     );
