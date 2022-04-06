@@ -27,6 +27,7 @@ class _HomeScrState extends State<HomeScr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       bottomNavigationBar: _NavBar(
         pageController: pageController,
       ),
