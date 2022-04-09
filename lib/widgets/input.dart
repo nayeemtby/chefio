@@ -88,12 +88,21 @@ class TxtField extends StatelessWidget {
 }
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  const SearchBar({
+    Key? key,
+    required this.controller,
+    required this.focusNode,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final FocusNode focusNode;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       // General Options
+      controller: controller,
+      focusNode: focusNode,
       maxLines: 1,
       cursorColor: AppColors.primary,
       keyboardType: TextInputType.text,
