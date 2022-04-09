@@ -26,20 +26,25 @@ class _HomeScrState extends State<HomeScr> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      bottomNavigationBar: _NavBar(
-        pageController: pageController,
-      ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: pageController,
-        children: const [
-          ExplorePage(),
-          SizedBox(),
-          NotificationPage(),
-          ProfileScr(),
-        ],
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.white,
+        bottomNavigationBar: _NavBar(
+          pageController: pageController,
+        ),
+        body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: pageController,
+          children: const [
+            ExplorePage(),
+            SizedBox(),
+            NotificationPage(),
+            ProfileScr(),
+          ],
+        ),
       ),
     );
   }
